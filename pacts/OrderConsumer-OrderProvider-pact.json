@@ -7,8 +7,8 @@
   },
   "interactions": [
     {
-      "providerState": "order 1 exists",
-      "description": "a request for order 1",
+      "providerState": "order 1 exists with status pending",
+      "description": "a request for a pending order",
       "request": {
         "method": "GET",
         "path": "/orders/1"
@@ -24,6 +24,57 @@
       }
     },
     {
+      "providerState": "order 2 exists with status shipped",
+      "description": "a request for a shipped order",
+      "request": {
+        "method": "GET",
+        "path": "/orders/2"
+      },
+      "response": {
+        "status": 200,
+        "body": {
+          "id": 2,
+          "product": "Mouse",
+          "quantity": 5,
+          "status": "shipped"
+        }
+      }
+    },
+    {
+      "providerState": "order 3 exists with status delivered",
+      "description": "a request for a delivered order",
+      "request": {
+        "method": "GET",
+        "path": "/orders/3"
+      },
+      "response": {
+        "status": 200,
+        "body": {
+          "id": 3,
+          "product": "Monitor",
+          "quantity": 1,
+          "status": "delivered"
+        }
+      }
+    },
+    {
+      "providerState": "order 4 exists with status cancelled",
+      "description": "a request for a cancelled order",
+      "request": {
+        "method": "GET",
+        "path": "/orders/4"
+      },
+      "response": {
+        "status": 200,
+        "body": {
+          "id": 4,
+          "product": "Keyboard",
+          "quantity": 3,
+          "status": "cancelled"
+        }
+      }
+    },
+    {
       "providerState": "order 99 does not exist",
       "description": "a request for a nonexistent order",
       "request": {
@@ -34,6 +85,377 @@
         "status": 404,
         "body": {
           "error": "Order not found"
+        }
+      }
+    },
+    {
+      "providerState": "multiple orders exist",
+      "description": "a request to list all orders",
+      "request": {
+        "method": "GET",
+        "path": "/orders"
+      },
+      "response": {
+        "status": 200,
+        "body": [
+          {
+            "id": 1,
+            "product": "Laptop",
+            "quantity": 2,
+            "status": "pending"
+          },
+          {
+            "id": 2,
+            "product": "Mouse",
+            "quantity": 5,
+            "status": "shipped"
+          },
+          {
+            "id": 3,
+            "product": "Monitor",
+            "quantity": 1,
+            "status": "delivered"
+          },
+          {
+            "id": 4,
+            "product": "Keyboard",
+            "quantity": 3,
+            "status": "cancelled"
+          }
+        ]
+      }
+    },
+    {
+      "providerState": "orders with status pending exist",
+      "description": "a request to list pending orders",
+      "request": {
+        "method": "GET",
+        "path": "/orders",
+        "query": "status=pending"
+      },
+      "response": {
+        "status": 200,
+        "body": [
+          {
+            "id": 1,
+            "product": "Laptop",
+            "quantity": 2,
+            "status": "pending"
+          }
+        ]
+      }
+    },
+    {
+      "providerState": "orders with status shipped exist",
+      "description": "a request to list shipped orders",
+      "request": {
+        "method": "GET",
+        "path": "/orders",
+        "query": "status=shipped"
+      },
+      "response": {
+        "status": 200,
+        "body": [
+          {
+            "id": 2,
+            "product": "Mouse",
+            "quantity": 5,
+            "status": "shipped"
+          }
+        ]
+      }
+    },
+    {
+      "providerState": "orders with status delivered exist",
+      "description": "a request to list delivered orders",
+      "request": {
+        "method": "GET",
+        "path": "/orders",
+        "query": "status=delivered"
+      },
+      "response": {
+        "status": 200,
+        "body": [
+          {
+            "id": 3,
+            "product": "Monitor",
+            "quantity": 1,
+            "status": "delivered"
+          }
+        ]
+      }
+    },
+    {
+      "providerState": "orders with status cancelled exist",
+      "description": "a request to list cancelled orders",
+      "request": {
+        "method": "GET",
+        "path": "/orders",
+        "query": "status=cancelled"
+      },
+      "response": {
+        "status": 200,
+        "body": [
+          {
+            "id": 4,
+            "product": "Keyboard",
+            "quantity": 3,
+            "status": "cancelled"
+          }
+        ]
+      }
+    },
+    {
+      "providerState": "an invalid status filter is provided",
+      "description": "a request to list orders with invalid status",
+      "request": {
+        "method": "GET",
+        "path": "/orders",
+        "query": "status=invalid"
+      },
+      "response": {
+        "status": 400,
+        "body": {
+          "error": "Invalid status 'invalid'"
+        }
+      }
+    },
+    {
+      "providerState": "the provider is ready to accept new orders",
+      "description": "a request to create a valid order",
+      "request": {
+        "method": "POST",
+        "path": "/orders",
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "body": {
+          "product": "Headphones",
+          "quantity": 1
+        }
+      },
+      "response": {
+        "status": 201,
+        "body": {
+          "id": 5,
+          "product": "Headphones",
+          "quantity": 1,
+          "status": "pending"
+        }
+      }
+    },
+    {
+      "providerState": "the provider validates order fields",
+      "description": "a request to create an order without product",
+      "request": {
+        "method": "POST",
+        "path": "/orders",
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "body": {
+          "product": "",
+          "quantity": 1
+        }
+      },
+      "response": {
+        "status": 400,
+        "body": {
+          "error": "Product is required"
+        }
+      }
+    },
+    {
+      "providerState": "the provider validates order fields",
+      "description": "a request to create an order with zero quantity",
+      "request": {
+        "method": "POST",
+        "path": "/orders",
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "body": {
+          "product": "Laptop",
+          "quantity": 0
+        }
+      },
+      "response": {
+        "status": 400,
+        "body": {
+          "error": "Quantity must be a positive integer"
+        }
+      }
+    },
+    {
+      "providerState": "the provider validates order fields",
+      "description": "a request to create an order with negative quantity",
+      "request": {
+        "method": "POST",
+        "path": "/orders",
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "body": {
+          "product": "Laptop",
+          "quantity": -5
+        }
+      },
+      "response": {
+        "status": 400,
+        "body": {
+          "error": "Quantity must be a positive integer"
+        }
+      }
+    },
+    {
+      "providerState": "order 1 exists and can be updated",
+      "description": "a request to update order 1 status to shipped",
+      "request": {
+        "method": "PATCH",
+        "path": "/orders/1/status",
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "body": {
+          "status": "shipped"
+        }
+      },
+      "response": {
+        "status": 200,
+        "body": {
+          "id": 1,
+          "product": "Laptop",
+          "quantity": 2,
+          "status": "shipped"
+        }
+      }
+    },
+    {
+      "providerState": "order 2 exists and can be updated",
+      "description": "a request to update order 2 status to delivered",
+      "request": {
+        "method": "PATCH",
+        "path": "/orders/2/status",
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "body": {
+          "status": "delivered"
+        }
+      },
+      "response": {
+        "status": 200,
+        "body": {
+          "id": 2,
+          "product": "Mouse",
+          "quantity": 5,
+          "status": "delivered"
+        }
+      }
+    },
+    {
+      "providerState": "order 3 exists and can be updated",
+      "description": "a request to update order 3 status to cancelled",
+      "request": {
+        "method": "PATCH",
+        "path": "/orders/3/status",
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "body": {
+          "status": "cancelled"
+        }
+      },
+      "response": {
+        "status": 200,
+        "body": {
+          "id": 3,
+          "product": "Monitor",
+          "quantity": 1,
+          "status": "cancelled"
+        }
+      }
+    },
+    {
+      "providerState": "order 99 does not exist",
+      "description": "a request to update status of nonexistent order",
+      "request": {
+        "method": "PATCH",
+        "path": "/orders/99/status",
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "body": {
+          "status": "shipped"
+        }
+      },
+      "response": {
+        "status": 404,
+        "body": {
+          "error": "Order not found"
+        }
+      }
+    },
+    {
+      "providerState": "order 1 exists and can be updated",
+      "description": "a request to update order 1 with invalid status",
+      "request": {
+        "method": "PATCH",
+        "path": "/orders/1/status",
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "body": {
+          "status": "unknown"
+        }
+      },
+      "response": {
+        "status": 400,
+        "body": {
+          "error": "Invalid status 'unknown'"
+        }
+      }
+    },
+    {
+      "providerState": "order 4 exists and can be deleted",
+      "description": "a request to delete order 4",
+      "request": {
+        "method": "DELETE",
+        "path": "/orders/4"
+      },
+      "response": {
+        "status": 200,
+        "body": {
+          "message": "Order 4 deleted"
+        }
+      }
+    },
+    {
+      "providerState": "order 99 does not exist",
+      "description": "a request to delete a nonexistent order",
+      "request": {
+        "method": "DELETE",
+        "path": "/orders/99"
+      },
+      "response": {
+        "status": 404,
+        "body": {
+          "error": "Order not found"
+        }
+      }
+    },
+    {
+      "providerState": "the provider is running",
+      "description": "a health check request",
+      "request": {
+        "method": "GET",
+        "path": "/health"
+      },
+      "response": {
+        "status": 200,
+        "body": {
+          "status": "UP",
+          "service": "OrderProvider"
         }
       }
     }
