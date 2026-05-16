@@ -1,0 +1,46 @@
+{
+  "consumer": {
+    "name": "OrderConsumer"
+  },
+  "provider": {
+    "name": "OrderProvider"
+  },
+  "interactions": [
+    {
+      "providerState": "order 1 exists",
+      "description": "a request for order 1",
+      "request": {
+        "method": "GET",
+        "path": "/orders/1"
+      },
+      "response": {
+        "status": 200,
+        "body": {
+          "id": 1,
+          "product": "Laptop",
+          "quantity": 2,
+          "status": "pending"
+        }
+      }
+    },
+    {
+      "providerState": "order 99 does not exist",
+      "description": "a request for a nonexistent order",
+      "request": {
+        "method": "GET",
+        "path": "/orders/99"
+      },
+      "response": {
+        "status": 404,
+        "body": {
+          "error": "Order not found"
+        }
+      }
+    }
+  ],
+  "metadata": {
+    "pactSpecification": {
+      "version": "2.0.0"
+    }
+  }
+}

@@ -1,0 +1,15 @@
+# Pact Consumer-Driven Contract Testing
+pactman==2.31.0
+
+# Web framework for Provider microservice
+flask==3.0.3
+
+# HTTP client for Consumer microservice
+requests==2.32.3
+
+# Testing
+pytest==8.3.3
+pytest-cov==5.0.0
+
+# Utilities
+python-dotenv==1.0.1
