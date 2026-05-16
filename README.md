@@ -34,7 +34,7 @@ In a microservices architecture, services communicate through APIs. When a Provi
 │       │                                                 │
 │       │  3. verified against contract                   │
 │       ▼                                                 │
-│   ✅ Safe to deploy — or ❌ Breaking change detected    │
+│   ✅ Safe to deploy — or ❌ Breaking change detected   │
 │                                                         │
 └─────────────────────────────────────────────────────────┘
 ```
