@@ -7,7 +7,7 @@
 ![Docker](https://img.shields.io/badge/Docker-Pact%20Broker-2496ED?logo=docker&logoColor=white)
 ![GitHub Actions](https://img.shields.io/badge/CI%2FCD-GitHub%20Actions-2088FF?logo=githubactions&logoColor=white)
 ![pytest](https://img.shields.io/badge/pytest-46%20tests-0A9EDC?logo=pytest&logoColor=white)
-[![LinkedIn](https://img.shields.io/badge/linkedin-%230077B5?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/vladimir-ram%C3%ADrez-303a433ba)
+[![LinkedIn](https://img.shields.io/badge/LinkedIn-Profile-0A66C2?style=flat&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/vladimir-ram%C3%ADrez-303a433ba)
 ![License](https://img.shields.io/badge/License-MIT-green)
 
 > Production-grade **Consumer-Driven Contract (CDC) Testing** suite for microservices. Validates API communication between services **without deploying them all at the same time**, preventing breaking changes from reaching production.
