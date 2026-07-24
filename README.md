@@ -10,7 +10,7 @@
 [![LinkedIn](https://img.shields.io/badge/LinkedIn-Profile-0A66C2?style=flat&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/vladimir-ram%C3%ADrez-303a433ba)
 ![License](https://img.shields.io/badge/License-MIT-green)
 
-> Production-grade **Consumer-Driven Contract (CDC) Testing** suite for microservices. Validates API communication between services **without deploying them all at the same time**, preventing breaking changes from reaching production.
+> Production-grade **Consumer-Driven Contract (CDC) Testing** suite for microservices. Validates API communication between services **without deploying them all at the same time**, preventing breaking changes from reaching production
 
 ---
 
